@@ -29,7 +29,7 @@ class ImageFetcher: ImageFetcherService {
     }
 
     func fetchImages() -> AnyPublisher<[ImgurResponse.ImageInfo], Error> {
-        let params = ImgurRequestParams(query: "cats")
+        let params = ImgurRequestParams(query: "starships")
         guard let request = getRequest(params: params) else {
             return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
         }

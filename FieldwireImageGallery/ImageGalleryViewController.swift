@@ -6,15 +6,23 @@
 //
 
 import Combine
-import SDWebImage
 import UIKit
 
 class ImageGalleryViewController: UIViewController {
 
     let reuseId = "ImageCell"
-    private let imageService: ImageFetcherService = ImageFetcher()
+    private let imageService: ImageFetcherService
     private var images: [ImgurResponse.ImageInfo] = []
     private var cancellables = Set<AnyCancellable>()
+
+    init(service: ImageFetcherService = ImageFetcher()) {
+        self.imageService = service
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     private lazy var collectionView: UICollectionView = {
         let verticalFlowLayout = UICollectionViewFlowLayout()
@@ -46,7 +54,7 @@ class ImageGalleryViewController: UIViewController {
         ])
     }
 
-    func fetchImages() {
+    private func fetchImages() {
         imageService.fetchImages()
             .sink(receiveCompletion: { completion in
                 switch completion {
@@ -73,14 +81,16 @@ extension ImageGalleryViewController: UICollectionViewDataSource {
         let colors: [UIColor] = [.cyan, .blue, .green]
         cell?.backgroundColor = colors.randomElement()
         let image = images[indexPath.row]
-        cell?.configure(with: image.images.first(where: { $0.type.contains("image") }))
+        cell?.configure(with: image)
         return cell ?? UICollectionViewCell()
     }
 }
 extension ImageGalleryViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, 
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width / 2 - 4, height: 200)
-        }
+    }
 }
 
 #if DEBUG
@@ -90,6 +100,10 @@ extension ImageGalleryViewController {
 
         var collectionView: UICollectionView {
             target.collectionView
+        }
+
+        var images: [ImgurResponse.ImageInfo] {
+            target.images
         }
     }
 
