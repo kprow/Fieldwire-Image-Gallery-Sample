@@ -71,6 +71,8 @@ final class ImageGalleryViewControllerTests: XCTestCase {
         should be the number of images returned from the api.
         """
         )
+
+        // Then
         let observedNumberOfItems = sut.collectionView(sut.testHooks.collectionView, numberOfItemsInSection: indexPath.section)
         XCTAssertEqual(observedNumberOfItems, mockImages.count,
         """
@@ -122,13 +124,41 @@ final class ImageGalleryViewControllerTests: XCTestCase {
         )
     }
 
+    func testFetchImagesIsCalled() throws {
+        // Given
+        mockService.mockImages = mockImages
+
+        // When
+        sut.viewDidLoad()
+        sut.testHooks.searchBar.text = searchTerm
+        sut.searchBarSearchButtonClicked(sut.testHooks.searchBar)
+        
+        // Then
+        XCTAssert(mockService.didCallFetchImage,
+        """
+        When a search is performed
+        we should call fetch images through the service.
+        """
+        )
+        XCTAssertEqual(mockService.fetchImagesQuery, searchTerm,
+        """
+        When a search is performed
+        we should call fetch images with the given query.
+        """
+        )
+    }
+
 }
 
 class MockImageService: ImageFetcherService {
     var mockImages: [ImgurResponse.ImageInfo] = []
     var mockError: Error? = nil
+    var didCallFetchImage = false
+    var fetchImagesQuery: String? = nil
     
     func fetchImages(query: String) -> AnyPublisher<[ImgurResponse.ImageInfo], Error> {
+        didCallFetchImage = true
+        fetchImagesQuery = query
         if let error = mockError {
             return Fail(error: error).eraseToAnyPublisher()
         } else {
