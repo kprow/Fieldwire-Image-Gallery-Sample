@@ -9,6 +9,7 @@ import UIKit
 import SDWebImage
 
 class ImageGalleryImageCell: UICollectionViewCell {
+    static let reuseId = "ImageGalleryImageCell"
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill

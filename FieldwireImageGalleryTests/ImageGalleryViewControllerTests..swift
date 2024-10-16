@@ -46,6 +46,7 @@ final class ImageGalleryViewControllerTests: XCTestCase {
                                     link: "https://link2.com/img.jpg",
                                     type: "image/jpg")]),
     ]
+    let searchTerm = "Test Search"
     
     func testNumberOfItemsInSection() throws {
         // Given
@@ -53,8 +54,17 @@ final class ImageGalleryViewControllerTests: XCTestCase {
 
         // When
         sut.viewDidLoad()
-        
+
         // Then
+        XCTAssertEqual(sut.testHooks.images.count, 0,
+        """
+        Before a search is performed,
+        the number of images should be 0.
+        """)
+
+        // When
+        sut.testHooks.searchBar.text = searchTerm
+        sut.searchBarSearchButtonClicked(sut.testHooks.searchBar)
         XCTAssertEqual(sut.testHooks.images.count, mockImages.count,
         """
         The number of images
@@ -74,7 +84,8 @@ final class ImageGalleryViewControllerTests: XCTestCase {
         mockService.mockImages = mockImages
 
         // When
-        sut.viewDidLoad()
+        sut.testHooks.searchBar.text = searchTerm
+        sut.searchBarSearchButtonClicked(sut.testHooks.searchBar)
         let observedCell = sut.collectionView(sut.testHooks.collectionView, cellForItemAt: indexPath) as? ImageGalleryImageCell
         
         // Then
@@ -92,7 +103,7 @@ class MockImageService: ImageFetcherService {
     var mockImages: [ImgurResponse.ImageInfo] = []
     var mockError: Error? = nil
     
-    func fetchImages() -> AnyPublisher<[ImgurResponse.ImageInfo], Error> {
+    func fetchImages(query: String) -> AnyPublisher<[ImgurResponse.ImageInfo], Error> {
         if let error = mockError {
             return Fail(error: error).eraseToAnyPublisher()
         } else {

@@ -10,7 +10,6 @@ import UIKit
 
 class ImageGalleryViewController: UIViewController {
 
-    let reuseId = "ImageCell"
     private let imageService: ImageFetcherService
     private var images: [ImgurResponse.ImageInfo] = []
     private var cancellables = Set<AnyCancellable>()
@@ -24,6 +23,13 @@ class ImageGalleryViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Search images"
+        searchBar.delegate = self
+        return searchBar
+    }()
+
     private lazy var collectionView: UICollectionView = {
         let verticalFlowLayout = UICollectionViewFlowLayout()
         verticalFlowLayout.scrollDirection = .vertical
@@ -32,7 +38,10 @@ class ImageGalleryViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: verticalFlowLayout)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(ImageGalleryImageCell.self, forCellWithReuseIdentifier: reuseId)
+        collectionView.register(
+            ImageGalleryImageCell.self,
+            forCellWithReuseIdentifier: ImageGalleryImageCell.reuseId
+        )
         collectionView.backgroundColor = .gray
         return collectionView
     }()
@@ -40,22 +49,29 @@ class ImageGalleryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewHierarchy()
-        fetchImages()
         view.backgroundColor = .red
     }
 
     private func setupViewHierarchy() {
+        view.addAutoLayoutSubview(searchBar)
         view.addAutoLayoutSubview(collectionView)
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            // Search Bar Constraints
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: UIView.spacing8),
+            searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -UIView.spacing8),
+            
+            // Collection View Constraints
+            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: UIView.spacing8),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -UIView.spacing8)
         ])
     }
 
-    private func fetchImages() {
-        imageService.fetchImages()
+    private func fetchImages(searchQuery: String? = nil) {
+        guard let query = searchQuery else { return }
+        imageService.fetchImages(query: query)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
@@ -71,13 +87,19 @@ class ImageGalleryViewController: UIViewController {
     }
 
 }
+
+// MARK: - UICollectionViewDataSource
+
 extension ImageGalleryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseId, for: indexPath) as? ImageGalleryImageCell
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: ImageGalleryImageCell.reuseId,
+            for: indexPath
+        ) as? ImageGalleryImageCell
         let colors: [UIColor] = [.cyan, .blue, .green]
         cell?.backgroundColor = colors.randomElement()
         let image = images[indexPath.row]
@@ -85,11 +107,25 @@ extension ImageGalleryViewController: UICollectionViewDataSource {
         return cell ?? UICollectionViewCell()
     }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
 extension ImageGalleryViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, 
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width / 2 - 4, height: 200)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension ImageGalleryViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let query = searchBar.text, !query.isEmpty else {
+            return
+        }
+        fetchImages(searchQuery: query)
+        searchBar.resignFirstResponder()
     }
 }
 
@@ -100,6 +136,10 @@ extension ImageGalleryViewController {
 
         var collectionView: UICollectionView {
             target.collectionView
+        }
+
+        var searchBar: UISearchBar {
+            target.searchBar
         }
 
         var images: [ImgurResponse.ImageInfo] {

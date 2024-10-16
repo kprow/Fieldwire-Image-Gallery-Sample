@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 protocol ImageFetcherService {
-    func fetchImages() -> AnyPublisher<[ImgurResponse.ImageInfo], Error>
+    func fetchImages(query: String) -> AnyPublisher<[ImgurResponse.ImageInfo], Error>
 }
 
 class ImageFetcher: ImageFetcherService {
@@ -28,8 +28,8 @@ class ImageFetcher: ImageFetcherService {
         return request
     }
 
-    func fetchImages() -> AnyPublisher<[ImgurResponse.ImageInfo], Error> {
-        let params = ImgurRequestParams(query: "starships")
+    func fetchImages(query: String) -> AnyPublisher<[ImgurResponse.ImageInfo], Error> {
+        let params = ImgurRequestParams(query: query)
         guard let request = getRequest(params: params) else {
             return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
         }
