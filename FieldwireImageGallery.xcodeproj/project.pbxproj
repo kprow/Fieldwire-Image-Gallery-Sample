@@ -9,12 +9,13 @@
 /* Begin PBXBuildFile section */
 		C9CECC822CBF643600F8F357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CECC812CBF643600F8F357 /* AppDelegate.swift */; };
 		C9CECC842CBF643600F8F357 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CECC832CBF643600F8F357 /* SceneDelegate.swift */; };
-		C9CECC862CBF643600F8F357 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CECC852CBF643600F8F357 /* ViewController.swift */; };
+		C9CECC862CBF643600F8F357 /* ImageGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CECC852CBF643600F8F357 /* ImageGalleryViewController.swift */; };
 		C9CECC8B2CBF643600F8F357 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9CECC8A2CBF643600F8F357 /* Assets.xcassets */; };
 		C9CECC8E2CBF643600F8F357 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C9CECC8D2CBF643600F8F357 /* Base */; };
 		C9CECC992CBF643600F8F357 /* FieldwireImageGalleryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CECC982CBF643600F8F357 /* FieldwireImageGalleryTests.swift */; };
 		C9CECCA32CBF643600F8F357 /* FieldwireImageGalleryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CECCA22CBF643600F8F357 /* FieldwireImageGalleryUITests.swift */; };
 		C9CECCA52CBF643600F8F357 /* FieldwireImageGalleryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CECCA42CBF643600F8F357 /* FieldwireImageGalleryUITestsLaunchTests.swift */; };
+		C9CECCB22CBF74A400F8F357 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CECCB12CBF74A400F8F357 /* UIView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +39,7 @@
 		C9CECC7E2CBF643600F8F357 /* FieldwireImageGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FieldwireImageGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9CECC812CBF643600F8F357 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9CECC832CBF643600F8F357 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C9CECC852CBF643600F8F357 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C9CECC852CBF643600F8F357 /* ImageGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewController.swift; sourceTree = "<group>"; };
 		C9CECC8A2CBF643600F8F357 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9CECC8D2CBF643600F8F357 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9CECC8F2CBF643600F8F357 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,6 +48,7 @@
 		C9CECC9E2CBF643600F8F357 /* FieldwireImageGalleryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FieldwireImageGalleryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9CECCA22CBF643600F8F357 /* FieldwireImageGalleryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldwireImageGalleryUITests.swift; sourceTree = "<group>"; };
 		C9CECCA42CBF643600F8F357 /* FieldwireImageGalleryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldwireImageGalleryUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C9CECCB12CBF74A400F8F357 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +101,11 @@
 			children = (
 				C9CECC812CBF643600F8F357 /* AppDelegate.swift */,
 				C9CECC832CBF643600F8F357 /* SceneDelegate.swift */,
-				C9CECC852CBF643600F8F357 /* ViewController.swift */,
+				C9CECC852CBF643600F8F357 /* ImageGalleryViewController.swift */,
 				C9CECC8A2CBF643600F8F357 /* Assets.xcassets */,
 				C9CECC8C2CBF643600F8F357 /* LaunchScreen.storyboard */,
 				C9CECC8F2CBF643600F8F357 /* Info.plist */,
+				C9CECCB12CBF74A400F8F357 /* UIView+Extension.swift */,
 			);
 			path = FieldwireImageGallery;
 			sourceTree = "<group>";
@@ -254,8 +257,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9CECC862CBF643600F8F357 /* ViewController.swift in Sources */,
+				C9CECC862CBF643600F8F357 /* ImageGalleryViewController.swift in Sources */,
 				C9CECC822CBF643600F8F357 /* AppDelegate.swift in Sources */,
+				C9CECCB22CBF74A400F8F357 /* UIView+Extension.swift in Sources */,
 				C9CECC842CBF643600F8F357 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
