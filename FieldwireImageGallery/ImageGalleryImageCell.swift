@@ -50,10 +50,8 @@ class ImageGalleryImageCell: UICollectionViewCell {
     
     func configure(with imgurImage: ImgurResponse.ImageInfo?) {
         titleLabel.text = imgurImage?.title
-        guard let link = imgurImage?.images.first(where: { $0.type.contains("image") })?.link else { return }
-        if let url = URL(string: link) {
-            imageView.sd_setImage(with: url)
-        }
+        guard let url = imgurImage?.singleImageUrl else { return }
+        imageView.sd_setImage(with: url)
     }
 }
 

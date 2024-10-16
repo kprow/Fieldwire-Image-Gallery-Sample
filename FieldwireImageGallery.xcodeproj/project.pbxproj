@@ -20,6 +20,7 @@
 		C9E223C82CC0422F00500E70 /* ImageGalleryImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E223C72CC0422F00500E70 /* ImageGalleryImageCell.swift */; };
 		C9E223CB2CC0424E00500E70 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = C9E223CA2CC0424E00500E70 /* SDWebImage */; };
 		C9E223CD2CC0424E00500E70 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C9E223CC2CC0424E00500E70 /* SDWebImageMapKit */; };
+		C9E223CF2CC06D3C00500E70 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E223CE2CC06D3C00500E70 /* ImageDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		C9E223C32CC041BD00500E70 /* ImageGalleryViewControllerTests..swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewControllerTests..swift; sourceTree = "<group>"; };
 		C9E223C52CC0420F00500E70 /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		C9E223C72CC0422F00500E70 /* ImageGalleryImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryImageCell.swift; sourceTree = "<group>"; };
+		C9E223CE2CC06D3C00500E70 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				C9CECCB12CBF74A400F8F357 /* UIView+Extension.swift */,
 				C9E223C52CC0420F00500E70 /* ImageFetcher.swift */,
 				C9E223C72CC0422F00500E70 /* ImageGalleryImageCell.swift */,
+				C9E223CE2CC06D3C00500E70 /* ImageDetailViewController.swift */,
 			);
 			path = FieldwireImageGallery;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 			files = (
 				C9E223C82CC0422F00500E70 /* ImageGalleryImageCell.swift in Sources */,
 				C9CECC862CBF643600F8F357 /* ImageGalleryViewController.swift in Sources */,
+				C9E223CF2CC06D3C00500E70 /* ImageDetailViewController.swift in Sources */,
 				C9CECC822CBF643600F8F357 /* AppDelegate.swift in Sources */,
 				C9CECCB22CBF74A400F8F357 /* UIView+Extension.swift in Sources */,
 				C9CECC842CBF643600F8F357 /* SceneDelegate.swift in Sources */,

@@ -79,5 +79,10 @@ struct ImgurResponse: Codable {
             let link: String
             let type: String
         }
+        var singleImageUrl: URL? {
+            guard let firstImage = images.first(where: { $0.type.contains("image") }),
+                  let url = URL(string: firstImage.link) else { return nil }
+            return url
+        }
     }
 }

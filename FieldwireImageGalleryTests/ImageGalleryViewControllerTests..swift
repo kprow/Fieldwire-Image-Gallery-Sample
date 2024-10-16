@@ -79,6 +79,7 @@ final class ImageGalleryViewControllerTests: XCTestCase {
         """
         )
     }
+
     func testCellForItemAt() throws {
         // Given
         mockService.mockImages = mockImages
@@ -97,6 +98,30 @@ final class ImageGalleryViewControllerTests: XCTestCase {
         """
         )
     }
+
+    func testDidSelectItemAt() throws {
+        // Given
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.makeKeyAndVisible()
+        window.rootViewController = sut
+        _ = sut.view
+        mockService.mockImages = mockImages
+        sut.testHooks.searchBar.text = searchTerm
+        sut.searchBarSearchButtonClicked(sut.testHooks.searchBar)
+
+        // When
+        sut.collectionView(sut.testHooks.collectionView, didSelectItemAt: indexPath)
+
+        // Then
+        XCTAssert(sut.presentedViewController is ImageDetailViewController,
+        """
+        The didSelectItemAt should be implemented
+        and when an image is selected
+        It should present the ImageDetailViewController.
+        """
+        )
+    }
+
 }
 
 class MockImageService: ImageFetcherService {

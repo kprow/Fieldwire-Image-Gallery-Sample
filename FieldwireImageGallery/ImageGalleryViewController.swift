@@ -42,14 +42,13 @@ class ImageGalleryViewController: UIViewController {
             ImageGalleryImageCell.self,
             forCellWithReuseIdentifier: ImageGalleryImageCell.reuseId
         )
-        collectionView.backgroundColor = .gray
         return collectionView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewHierarchy()
-        view.backgroundColor = .red
+        view.backgroundColor = .white
     }
 
     private func setupViewHierarchy() {
@@ -100,18 +99,31 @@ extension ImageGalleryViewController: UICollectionViewDataSource {
             withReuseIdentifier: ImageGalleryImageCell.reuseId,
             for: indexPath
         ) as? ImageGalleryImageCell
-        let colors: [UIColor] = [.cyan, .blue, .green]
-        cell?.backgroundColor = colors.randomElement()
+        cell?.backgroundColor = .lightGray
         let image = images[indexPath.row]
         cell?.configure(with: image)
         return cell ?? UICollectionViewCell()
     }
 }
 
+// MARK: - UICollectionViewDelegate
+
+extension ImageGalleryViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedImage = images[indexPath.item]
+        let viewModel = ImageDetailViewController.ViewModel(
+            imageURL: selectedImage.singleImageUrl,
+            title: selectedImage.title
+        )
+        let imageDetailVC = ImageDetailViewController(viewModel: viewModel)
+        present(imageDetailVC, animated: false)
+    }
+}
+
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension ImageGalleryViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, 
+extension ImageGalleryViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width / 2 - 4, height: 200)
