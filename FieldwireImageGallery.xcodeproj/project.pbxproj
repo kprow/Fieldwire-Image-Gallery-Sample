@@ -12,10 +12,14 @@
 		C9CECC862CBF643600F8F357 /* ImageGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CECC852CBF643600F8F357 /* ImageGalleryViewController.swift */; };
 		C9CECC8B2CBF643600F8F357 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9CECC8A2CBF643600F8F357 /* Assets.xcassets */; };
 		C9CECC8E2CBF643600F8F357 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C9CECC8D2CBF643600F8F357 /* Base */; };
-		C9CECC992CBF643600F8F357 /* FieldwireImageGalleryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CECC982CBF643600F8F357 /* FieldwireImageGalleryTests.swift */; };
 		C9CECCA32CBF643600F8F357 /* FieldwireImageGalleryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CECCA22CBF643600F8F357 /* FieldwireImageGalleryUITests.swift */; };
 		C9CECCA52CBF643600F8F357 /* FieldwireImageGalleryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CECCA42CBF643600F8F357 /* FieldwireImageGalleryUITestsLaunchTests.swift */; };
 		C9CECCB22CBF74A400F8F357 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CECCB12CBF74A400F8F357 /* UIView+Extension.swift */; };
+		C9E223C42CC041BD00500E70 /* ImageGalleryViewControllerTests..swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E223C32CC041BD00500E70 /* ImageGalleryViewControllerTests..swift */; };
+		C9E223C62CC0420F00500E70 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E223C52CC0420F00500E70 /* ImageFetcher.swift */; };
+		C9E223C82CC0422F00500E70 /* ImageGalleryImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E223C72CC0422F00500E70 /* ImageGalleryImageCell.swift */; };
+		C9E223CB2CC0424E00500E70 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = C9E223CA2CC0424E00500E70 /* SDWebImage */; };
+		C9E223CD2CC0424E00500E70 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C9E223CC2CC0424E00500E70 /* SDWebImageMapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,11 +48,13 @@
 		C9CECC8D2CBF643600F8F357 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9CECC8F2CBF643600F8F357 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9CECC942CBF643600F8F357 /* FieldwireImageGalleryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FieldwireImageGalleryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C9CECC982CBF643600F8F357 /* FieldwireImageGalleryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldwireImageGalleryTests.swift; sourceTree = "<group>"; };
 		C9CECC9E2CBF643600F8F357 /* FieldwireImageGalleryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FieldwireImageGalleryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9CECCA22CBF643600F8F357 /* FieldwireImageGalleryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldwireImageGalleryUITests.swift; sourceTree = "<group>"; };
 		C9CECCA42CBF643600F8F357 /* FieldwireImageGalleryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldwireImageGalleryUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C9CECCB12CBF74A400F8F357 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		C9E223C32CC041BD00500E70 /* ImageGalleryViewControllerTests..swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewControllerTests..swift; sourceTree = "<group>"; };
+		C9E223C52CC0420F00500E70 /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
+		C9E223C72CC0422F00500E70 /* ImageGalleryImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryImageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +62,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9E223CD2CC0424E00500E70 /* SDWebImageMapKit in Frameworks */,
+				C9E223CB2CC0424E00500E70 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +114,8 @@
 				C9CECC8C2CBF643600F8F357 /* LaunchScreen.storyboard */,
 				C9CECC8F2CBF643600F8F357 /* Info.plist */,
 				C9CECCB12CBF74A400F8F357 /* UIView+Extension.swift */,
+				C9E223C52CC0420F00500E70 /* ImageFetcher.swift */,
+				C9E223C72CC0422F00500E70 /* ImageGalleryImageCell.swift */,
 			);
 			path = FieldwireImageGallery;
 			sourceTree = "<group>";
@@ -113,7 +123,7 @@
 		C9CECC972CBF643600F8F357 /* FieldwireImageGalleryTests */ = {
 			isa = PBXGroup;
 			children = (
-				C9CECC982CBF643600F8F357 /* FieldwireImageGalleryTests.swift */,
+				C9E223C32CC041BD00500E70 /* ImageGalleryViewControllerTests..swift */,
 			);
 			path = FieldwireImageGalleryTests;
 			sourceTree = "<group>";
@@ -143,6 +153,10 @@
 			dependencies = (
 			);
 			name = FieldwireImageGallery;
+			packageProductDependencies = (
+				C9E223CA2CC0424E00500E70 /* SDWebImage */,
+				C9E223CC2CC0424E00500E70 /* SDWebImageMapKit */,
+			);
 			productName = FieldwireImageGallery;
 			productReference = C9CECC7E2CBF643600F8F357 /* FieldwireImageGallery.app */;
 			productType = "com.apple.product-type.application";
@@ -198,6 +212,7 @@
 					};
 					C9CECC932CBF643600F8F357 = {
 						CreatedOnToolsVersion = 15.3;
+						LastSwiftMigration = 1530;
 						TestTargetID = C9CECC7D2CBF643500F8F357;
 					};
 					C9CECC9D2CBF643600F8F357 = {
@@ -215,6 +230,9 @@
 				Base,
 			);
 			mainGroup = C9CECC752CBF643500F8F357;
+			packageReferences = (
+				C9E223C92CC0424E00500E70 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = C9CECC7F2CBF643600F8F357 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -257,10 +275,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9E223C82CC0422F00500E70 /* ImageGalleryImageCell.swift in Sources */,
 				C9CECC862CBF643600F8F357 /* ImageGalleryViewController.swift in Sources */,
 				C9CECC822CBF643600F8F357 /* AppDelegate.swift in Sources */,
 				C9CECCB22CBF74A400F8F357 /* UIView+Extension.swift in Sources */,
 				C9CECC842CBF643600F8F357 /* SceneDelegate.swift in Sources */,
+				C9E223C62CC0420F00500E70 /* ImageFetcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,7 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9CECC992CBF643600F8F357 /* FieldwireImageGalleryTests.swift in Sources */,
+				C9E223C42CC041BD00500E70 /* ImageGalleryViewControllerTests..swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +506,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ND3DY3ZP2D;
@@ -495,6 +516,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Kprow.FieldwireImageGalleryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FieldwireImageGallery.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FieldwireImageGallery";
@@ -506,6 +528,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ND3DY3ZP2D;
@@ -597,6 +620,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C9E223C92CC0424E00500E70 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.19.7;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C9E223CA2CC0424E00500E70 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9E223C92CC0424E00500E70 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		C9E223CC2CC0424E00500E70 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9E223C92CC0424E00500E70 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C9CECC762CBF643500F8F357 /* Project object */;
 }

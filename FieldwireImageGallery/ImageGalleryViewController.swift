@@ -5,11 +5,16 @@
 //  Created by Andrew Koprowski on 10/15/24.
 //
 
+import Combine
+import SDWebImage
 import UIKit
 
 class ImageGalleryViewController: UIViewController {
 
     let reuseId = "ImageCell"
+    private let imageService: ImageFetcherService = ImageFetcher()
+    private var images: [ImgurResponse.ImageInfo] = []
+    private var cancellables = Set<AnyCancellable>()
 
     private lazy var collectionView: UICollectionView = {
         let verticalFlowLayout = UICollectionViewFlowLayout()
@@ -19,13 +24,15 @@ class ImageGalleryViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: verticalFlowLayout)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseId)
+        collectionView.register(ImageGalleryImageCell.self, forCellWithReuseIdentifier: reuseId)
+        collectionView.backgroundColor = .gray
         return collectionView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewHierarchy()
+        fetchImages()
         view.backgroundColor = .red
     }
 
@@ -39,17 +46,35 @@ class ImageGalleryViewController: UIViewController {
         ])
     }
 
+    func fetchImages() {
+        imageService.fetchImages()
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    print("Error fetching images: \(error)")
+                case .finished:
+                    break
+                }
+            }, receiveValue: { [weak self] images in
+                self?.images = images
+                self?.collectionView.reloadData()
+            })
+            .store(in: &cancellables)
+    }
+
 }
 extension ImageGalleryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 50
+        images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseId, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseId, for: indexPath) as? ImageGalleryImageCell
         let colors: [UIColor] = [.cyan, .blue, .green]
-        cell.backgroundColor = colors.randomElement()
-        return cell
+        cell?.backgroundColor = colors.randomElement()
+        let image = images[indexPath.row]
+        cell?.configure(with: image.images.first(where: { $0.type.contains("image") }))
+        return cell ?? UICollectionViewCell()
     }
 }
 extension ImageGalleryViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -57,3 +82,19 @@ extension ImageGalleryViewController: UICollectionViewDelegate, UICollectionView
         return CGSize(width: collectionView.bounds.width / 2 - 4, height: 200)
         }
 }
+
+#if DEBUG
+extension ImageGalleryViewController {
+    struct TestHooks {
+        let target: ImageGalleryViewController
+
+        var collectionView: UICollectionView {
+            target.collectionView
+        }
+    }
+
+    var testHooks: TestHooks {
+        TestHooks(target: self)
+    }
+}
+#endif
