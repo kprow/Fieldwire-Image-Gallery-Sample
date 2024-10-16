@@ -109,16 +109,12 @@
 		C9CECC802CBF643600F8F357 /* FieldwireImageGallery */ = {
 			isa = PBXGroup;
 			children = (
-				C9CECC812CBF643600F8F357 /* AppDelegate.swift */,
-				C9CECC832CBF643600F8F357 /* SceneDelegate.swift */,
-				C9CECC852CBF643600F8F357 /* ImageGalleryViewController.swift */,
+				C9E223D32CC07F6900500E70 /* App */,
 				C9CECC8A2CBF643600F8F357 /* Assets.xcassets */,
-				C9CECC8C2CBF643600F8F357 /* LaunchScreen.storyboard */,
-				C9CECC8F2CBF643600F8F357 /* Info.plist */,
-				C9CECCB12CBF74A400F8F357 /* UIView+Extension.swift */,
-				C9E223C52CC0420F00500E70 /* ImageFetcher.swift */,
-				C9E223C72CC0422F00500E70 /* ImageGalleryImageCell.swift */,
-				C9E223CE2CC06D3C00500E70 /* ImageDetailViewController.swift */,
+				C9E223D42CC07F8200500E70 /* Extensions */,
+				C9E223D02CC07F0400500E70 /* ImageGallery */,
+				C9E223D22CC07F4100500E70 /* Sevices */,
+				C9E223D12CC07F2500500E70 /* SupportingFiles */,
 			);
 			path = FieldwireImageGallery;
 			sourceTree = "<group>";
@@ -138,6 +134,50 @@
 				C9CECCA42CBF643600F8F357 /* FieldwireImageGalleryUITestsLaunchTests.swift */,
 			);
 			path = FieldwireImageGalleryUITests;
+			sourceTree = "<group>";
+		};
+		C9E223D02CC07F0400500E70 /* ImageGallery */ = {
+			isa = PBXGroup;
+			children = (
+				C9E223CE2CC06D3C00500E70 /* ImageDetailViewController.swift */,
+				C9E223C72CC0422F00500E70 /* ImageGalleryImageCell.swift */,
+				C9CECC852CBF643600F8F357 /* ImageGalleryViewController.swift */,
+			);
+			path = ImageGallery;
+			sourceTree = "<group>";
+		};
+		C9E223D12CC07F2500500E70 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C9CECC8F2CBF643600F8F357 /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		C9E223D22CC07F4100500E70 /* Sevices */ = {
+			isa = PBXGroup;
+			children = (
+				C9E223C52CC0420F00500E70 /* ImageFetcher.swift */,
+			);
+			path = Sevices;
+			sourceTree = "<group>";
+		};
+		C9E223D32CC07F6900500E70 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C9CECC812CBF643600F8F357 /* AppDelegate.swift */,
+				C9CECC8C2CBF643600F8F357 /* LaunchScreen.storyboard */,
+				C9CECC832CBF643600F8F357 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		C9E223D42CC07F8200500E70 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C9CECCB12CBF74A400F8F357 /* UIView+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
