@@ -9,13 +9,23 @@ import Combine
 import UIKit
 
 class ImageGalleryViewController: UIViewController {
+    struct ViewModel {
+        enum State: String {
+            case noSearch = "Please perform a search."
+            case success = "Success"
+            case error = "Oops ... something went wrong."
+        }
+        var state: State
+        var images: [ImgurResponse.ImageInfo]
+    }
 
     private let imageService: ImageFetcherService
-    private var images: [ImgurResponse.ImageInfo] = []
+    private var viewModel: ViewModel
     private var cancellables = Set<AnyCancellable>()
 
     init(service: ImageFetcherService = ImageFetcher()) {
         self.imageService = service
+        viewModel = ViewModel(state: .noSearch, images: [])
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -44,6 +54,15 @@ class ImageGalleryViewController: UIViewController {
         )
         return collectionView
     }()
+
+    private lazy var stateLabel: UILabel = {
+        let label = UILabel()
+        label.text = viewModel.state.rawValue
+        label.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,33 +72,56 @@ class ImageGalleryViewController: UIViewController {
 
     private func setupViewHierarchy() {
         view.addAutoLayoutSubview(searchBar)
-        view.addAutoLayoutSubview(collectionView)
+        let containerView = UIView()
+        view.addAutoLayoutSubview(containerView)
+        containerView.addAutoLayoutSubview(stateLabel)
+        containerView.addAutoLayoutSubview(collectionView)
         NSLayoutConstraint.activate([
             // Search Bar Constraints
             searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: UIView.spacing8),
             searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -UIView.spacing8),
+
+            // Container View Constraints
+            containerView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            containerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: UIView.spacing8),
+            containerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -UIView.spacing8),
+            
             
             // Collection View Constraints
-            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: UIView.spacing8),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -UIView.spacing8)
+            collectionView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+
+            // State Label Constraints
+            stateLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            stateLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            stateLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            stateLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
         ])
+        collectionView.isHidden = true
     }
 
     private func fetchImages(searchQuery: String? = nil) {
         guard let query = searchQuery else { return }
         imageService.fetchImages(query: query)
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .failure(let error):
                     print("Error fetching images: \(error)")
+                    self?.viewModel.state = .error
+                    self?.stateLabel.text = self?.viewModel.state.rawValue
+                    self?.stateLabel.isHidden = false
+                    self?.collectionView.isHidden = true
                 case .finished:
                     break
                 }
             }, receiveValue: { [weak self] images in
-                self?.images = images
+                self?.viewModel.images = images
+                self?.stateLabel.isHidden = true
+                self?.collectionView.isHidden = false
                 self?.collectionView.reloadData()
             })
             .store(in: &cancellables)
@@ -91,7 +133,7 @@ class ImageGalleryViewController: UIViewController {
 
 extension ImageGalleryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        images.count
+        viewModel.images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -100,7 +142,7 @@ extension ImageGalleryViewController: UICollectionViewDataSource {
             for: indexPath
         ) as? ImageGalleryImageCell
         cell?.backgroundColor = .lightGray
-        let image = images[indexPath.row]
+        let image = viewModel.images[indexPath.row]
         cell?.configure(with: image)
         return cell ?? UICollectionViewCell()
     }
@@ -110,7 +152,7 @@ extension ImageGalleryViewController: UICollectionViewDataSource {
 
 extension ImageGalleryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedImage = images[indexPath.item]
+        let selectedImage = viewModel.images[indexPath.item]
         let viewModel = ImageDetailViewController.ViewModel(
             imageURL: selectedImage.singleImageUrl,
             title: selectedImage.title
@@ -155,7 +197,7 @@ extension ImageGalleryViewController {
         }
 
         var images: [ImgurResponse.ImageInfo] {
-            target.images
+            target.viewModel.images
         }
     }
 
